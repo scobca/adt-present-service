@@ -20,7 +20,7 @@
     <ul class="list-container">
       <ListItem
           v-for="item in items"
-          :key="item.id"
+<!--          :key="item.id"-->
           :item="item"
           @update:checked="handleCheckboxChange"
       />
