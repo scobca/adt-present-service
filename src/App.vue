@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Логотип -->
     <div class="logo fixed-logo">
-      <img src="../src/assets/logo.png" alt="Логотип" />
+      <img src="../src/assets/logo.png" alt="Логотип"/>
     </div>
 
     <!-- Форма ввода -->
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import {defineComponent} from 'vue';
 import ListItem from "./components/ListItem.vue";
 
 export default defineComponent({
@@ -50,11 +50,11 @@ export default defineComponent({
   },
   methods: {
     addItem() {
-console.log(456)
-      }
-    },
-    handleCheckboxChange(payload: { id: number; checked: boolean }) {
-console.log(123)
+      console.log(456)
+    }
+  },
+  handleCheckboxChange(payload: { id: number; checked: boolean }) {
+    console.log(123)
   },
 });
 </script>
@@ -94,6 +94,7 @@ console.log(123)
   border-radius: 8px;
   font-size: 16px;
   background: #f8f9fa;
+  color: black;
 }
 
 .add-button {
@@ -145,6 +146,7 @@ console.log(123)
   .add-button {
     width: 100%;
     box-sizing: border-box;
+    color: black;
   }
 }
 </style>
