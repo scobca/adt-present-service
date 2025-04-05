@@ -1,28 +1,46 @@
 <template>
-  <div class="container">
-    <main-component></main-component>
+  <div class="app-container">
+    <div class="logo" @click="$router.push('/')">
+      <img src="./assets/logo.png" alt="Логотип"/>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import MainComponent from "./components/MainComp.vue";
-
 
 export default defineComponent({
   name: 'App',
-  components: {
-    MainComponent,
-  },
 })
 
 </script>
 
 <style scoped>
-.container {
+.app-container {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  padding: 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-bottom: 2rem;
+  border: 1px solid red;
+}
+
+.logo {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  img {
+    width: 100px;
+    height: auto;
+  }
+}
+
+.logo:hover {
+  cursor: pointer;
 }
 </style>
