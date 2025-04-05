@@ -1,10 +1,5 @@
 <template>
   <div class="container">
-    <!-- Логотип -->
-    <div class="logo fixed-logo">
-      <img src="../assets/logo.png" alt="Логотип"/>
-    </div>
-
     <!-- Форма ввода -->
     <div class="input-group">
       <input
@@ -65,19 +60,6 @@ export default defineComponent({
   margin: 0 auto;
   padding: 20px;
   position: relative;
-}
-
-.fixed-logo {
-  position: fixed;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-}
-
-.fixed-logo img {
-  width: 100px;
-  height: auto;
 }
 
 .input-group {
