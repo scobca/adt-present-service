@@ -21,22 +21,13 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding-bottom: 2rem;
+  justify-content: flex-start;
+  padding: 2rem 0;
 }
 
-.logo {
-  position: fixed;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-
-  img {
-    width: 100px;
-    height: auto;
-  }
+.logo, .logo > img {
+  height: 7rem;
+  margin-bottom: 2rem;
 }
 
 .logo:hover {
