@@ -22,7 +22,8 @@ export default defineComponent({
     return {
       participationResolver,
       isMobile,
-      participants: [] as ParticipantStructureDto[]
+      participants: [] as ParticipantStructureDto[],
+      searchQuery: "",
     }
   },
   async mounted() {
@@ -38,12 +39,21 @@ export default defineComponent({
 
       await this.participationResolver.update(updatedData);
     }
+  },
+  computed: {
+    participationList() {
+      return this.participants.filter((el) => el.name.includes(this.searchQuery))
+    }
   }
 })
 </script>
 
 <template>
   <div class="container" :class="isMobile ? 'container-mobile' : 'container-desktop'">
+    <div class="search-input-container">
+      <input class="text-input" v-model="searchQuery" type="text" placeholder="ФИО Участника" />
+    </div>
+
     <div class="block-title" v-if="!isMobile">
       <div class="block">
         Имя участника
@@ -59,7 +69,7 @@ export default defineComponent({
       </div>
     </div>
 
-    <ParticipantItem v-for="(participant, index) in participants"
+    <ParticipantItem v-for="(participant, index) in participationList"
                      :key="index"
                      class="item"
                      @checkbox-change="(check: boolean) => change(participant.id, check)"
@@ -76,7 +86,7 @@ export default defineComponent({
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-color: #fff;
   padding: 1rem;
@@ -86,10 +96,12 @@ export default defineComponent({
 
 .container-mobile {
   width: 85%;
+  min-height: 30vh;
 }
 
 .container-desktop {
   width: 70vw;
+  min-height: 50vh;
 }
 
 .item {
@@ -120,5 +132,17 @@ export default defineComponent({
 
 .block-title > div:last-child {
   border: 0;
+}
+
+.text-input {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #b8d8d8;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #f8f9fa;
+  color: black;
 }
 </style>
