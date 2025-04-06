@@ -53,7 +53,7 @@ export default defineComponent({
     <EventItem v-for="(event, index) in events"
                :key="index"
                class="event-item"
-               @click="console.log(event.id)"
+               @click="$router.push(`/participants/${event.id}`)"
     >
       <template v-slot:name> {{ event.name }}</template>
       <template v-slot:time> {{ convertDateFormat(event.data) }}</template>

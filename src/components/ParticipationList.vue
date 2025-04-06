@@ -11,7 +11,7 @@ export default defineComponent({
   components: {ParticipantItem},
   props: {
     eventId: {
-      type: Number,
+      type: String,
       required: true
     },
   },
@@ -27,7 +27,7 @@ export default defineComponent({
     }
   },
   async mounted() {
-    const res = await this.participationResolver.getAll(this.eventId)
+    const res = await this.participationResolver.getAll(Number(this.eventId));
     this.participants = res.sort((a, b) => a.name.localeCompare(b.name))
     },
   methods: {
@@ -74,11 +74,14 @@ export default defineComponent({
                      class="item"
                      @checkbox-change="(check: boolean) => change(participant.id, check)"
                      :is-here="participant.presence"
+                     v-if="participants.length > 0"
     >
       <template v-slot:name> {{participant.name}} </template>
       <template v-slot:competence> {{participant.competence}} </template>
       <template v-slot:age> {{participant.age}} </template>
     </ParticipantItem>
+
+    <h1 class="sub-header" v-else>Пока что участников нет</h1>
   </div>
 </template>
 
@@ -143,6 +146,10 @@ export default defineComponent({
   border-radius: 8px;
   font-size: 16px;
   background: #f8f9fa;
+  color: black;
+}
+
+.sub-header {
   color: black;
 }
 </style>
