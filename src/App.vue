@@ -24,7 +24,6 @@ export default defineComponent({
   justify-content: center;
   min-height: 100vh;
   padding-bottom: 2rem;
-  border: 1px solid red;
 }
 
 .logo {
