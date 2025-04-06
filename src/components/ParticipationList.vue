@@ -125,7 +125,7 @@ export default defineComponent({
 
 .block-title {
   display: grid;
-  grid-template-columns:  5fr 5fr 3fr 2fr;
+  grid-template-columns:  5fr 5fr 3fr 8fr;
   justify-content: center;
   align-items: center;
   text-align: left;
