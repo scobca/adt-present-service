@@ -4,4 +4,5 @@ export interface UpdateParticipantDto {
   age?: string;
   presence?: boolean;
   eventId?: number;
+  count?: number;
 }

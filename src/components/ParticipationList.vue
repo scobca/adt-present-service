@@ -29,7 +29,7 @@ export default defineComponent({
   async mounted() {
     const res = await this.participationResolver.getAll(Number(this.eventId));
     this.participants = res.sort((a, b) => a.name.localeCompare(b.name))
-    },
+  },
   methods: {
     async change(id: number, checked: boolean) {
       const updatedData: UpdateParticipantDto = {
@@ -38,11 +38,21 @@ export default defineComponent({
       }
 
       await this.participationResolver.update(updatedData);
+      window.location.reload();
+    },
+    async changeCount(id: number, count: number) {
+      const updatedData: UpdateParticipantDto = {
+        id: id,
+        count: count
+      }
+
+      await this.participationResolver.update(updatedData);
+      window.location.reload();
     }
   },
   computed: {
     participationList() {
-      return this.participants.filter((el) => el.name.includes(this.searchQuery))
+      return this.participants.filter((el) => el.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
     }
   }
 })
@@ -51,7 +61,7 @@ export default defineComponent({
 <template>
   <div class="container" :class="isMobile ? 'container-mobile' : 'container-desktop'">
     <div class="search-input-container">
-      <input class="text-input" v-model="searchQuery" type="text" placeholder="ФИО Участника" />
+      <input class="text-input" v-model="searchQuery" type="text" placeholder="ФИО Участника"/>
     </div>
 
     <div class="block-title" v-if="!isMobile">
@@ -73,12 +83,14 @@ export default defineComponent({
                      :key="index"
                      class="item"
                      @checkbox-change="(check: boolean) => change(participant.id, check)"
+                     @count-change="(count: number) => changeCount(participant.id, count)"
                      :is-here="participant.presence"
+                     :count="participant.count == null ? 0 : participant.count"
                      v-if="participants.length > 0"
     >
-      <template v-slot:name> {{participant.name}} </template>
-      <template v-slot:competence> {{participant.competence}} </template>
-      <template v-slot:age> {{participant.age}} </template>
+      <template v-slot:name> {{ participant.name }}</template>
+      <template v-slot:competence> {{ participant.competence }}</template>
+      <template v-slot:age> {{ participant.age }}</template>
     </ParticipantItem>
 
     <h1 class="sub-header" v-else>Пока что участников нет</h1>

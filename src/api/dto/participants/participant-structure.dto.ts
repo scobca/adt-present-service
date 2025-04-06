@@ -4,4 +4,5 @@ export interface ParticipantStructureDto {
   competence: string;
   age: string;
   presence: boolean;
+  count?: number;
 }

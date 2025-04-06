@@ -3,13 +3,18 @@ import {useDevice} from "../../utils/modile-detector.util.ts";
 
 export default {
   name: "ParticipantItem",
-  emits: ['checkboxChange'],
+  emits: ['checkboxChange', 'countChange'],
   props: {
     isHere: {
       type: Boolean,
       required: true,
       default: null
     },
+    count: {
+      type: Number,
+      required: true,
+      default: 0
+    }
   },
   data() {
     const isMobile = useDevice().isMobile;
@@ -17,12 +22,16 @@ export default {
     return {
       isMobile,
       isHereLocal: this.isHere,
+      localCount: this.count
     }
   },
   methods: {
     change() {
       this.isHereLocal = !this.isHereLocal;
       this.$emit('checkboxChange', this.isHereLocal)
+    },
+    changeCount() {
+      this.$emit('countChange', this.localCount);
     }
   }
 }
@@ -40,6 +49,10 @@ export default {
       <slot name="age">Возраст</slot>
     </div>
     <input class="checkbox-input" type="checkbox" v-model="isHereLocal" @click="change">
+    <input class="checkbox-input" type="number" v-model.number="localCount" :min="0"/>
+    <div class="block">
+      <p @click="changeCount" class="ok-button">OK</p>
+    </div>
   </div>
 
   <div class="wrapper-mobile wrapper" v-else>
@@ -60,6 +73,13 @@ export default {
       <input class="checkbox-input" type="checkbox" v-model="isHereLocal"
              @click="change"/>
     </div>
+    <div class="input-wrapper-grid no-margin">
+      <p><strong> Кол-во гостей </strong></p>
+      <input class="checkbox-input" type="number" v-model.number="localCount" :min="0"/>
+      <div class="block">
+        <p @click="changeCount" class="ok-button">OK</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -73,7 +93,7 @@ export default {
 
 .wrapper-desktop {
   display: grid;
-  grid-template-columns: 5fr 5fr 3fr 2fr;
+  grid-template-columns: 5fr 5fr 3fr 2fr 2fr 1fr;
   justify-content: center;
   align-items: center;
   text-align: left;
@@ -121,10 +141,34 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 1rem;
 
   .checkbox-input {
     margin-right: 35%;
     width: 1.25rem;
   }
+}
+
+.ok-button {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.1rem;
+  text-align: center;
+}
+
+.ok-button:hover {
+  cursor: pointer;
+}
+
+.input-wrapper-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.no-margin {
+  margin: 0;
 }
 </style>
