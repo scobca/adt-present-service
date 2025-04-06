@@ -38,7 +38,6 @@ export default defineComponent({
       }
 
       await this.participationResolver.update(updatedData);
-      window.location.reload();
     },
     async changeCount(id: number, count: number) {
       const updatedData: UpdateParticipantDto = {
@@ -46,8 +45,9 @@ export default defineComponent({
         count: count
       }
 
-      await this.participationResolver.update(updatedData);
-      window.location.reload();
+      await this.participationResolver.update(updatedData).then(() => {
+        window.location.reload();
+      });
     }
   },
   computed: {
